@@ -24,4 +24,21 @@ def count_words():
     print(f"The total number of words is: {word_number}")
 
 
+def count_characters():
+    book_text = main()
+    lower_text = book_text.lower()
+    counted_chars = {chr(i): 0 for i in range(97, 123)}
+    
+    for x in lower_text:
+        if x.isalpha():  # Process only alphabetic characters
+            counted_chars[x] += 1
+    
+    print("The number of times each character appeared where: ")
+    for char, count in counted_chars.items():
+        print(f"{char}: {count}")
+
+    return counted_chars
+
+
 count_words()
+count_characters()
