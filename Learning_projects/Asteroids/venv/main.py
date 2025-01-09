@@ -1,6 +1,6 @@
 import pygame
 from constants import *
-
+from player import *
 
 def main():
     print("Game is starting...")
@@ -13,13 +13,15 @@ def main():
     is_running = True
     clock = pygame.time.Clock()
     dt = 0
+    player_instance = player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS)
 
     # Add other game logic or setup
     while is_running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        
+            
+        player_instance.draw(screen)
         pygame.display.flip() 
         dt = clock.tick(60)/1000
     
