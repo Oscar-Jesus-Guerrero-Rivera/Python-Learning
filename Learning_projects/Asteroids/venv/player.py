@@ -1,6 +1,7 @@
 import pygame
 from constants import *
 from circleshape import *
+from shoot import *
 
 class player(CircleShape):
     containers = None
@@ -36,6 +37,8 @@ class player(CircleShape):
             self.rotation -= 200 * dt
         if keys[pygame.K_d]:  # Rotate right
             self.rotation += 200 * dt
+        if keys[pygame.K_SPACE]:
+            self.shoot()
 
     def move(self,dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -43,3 +46,8 @@ class player(CircleShape):
 
     def check_collision(self, circle):
         return super().check_collision(circle)
+    
+    def shoot(self):
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        velocity = forward * PLAYER_SHOOT_SPEED
+        Shoot(self.position.x, self.position.y, velocity)
