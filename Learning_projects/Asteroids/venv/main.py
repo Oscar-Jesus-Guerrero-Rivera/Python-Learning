@@ -35,6 +35,7 @@ def main():
         for thing in updatable:
             thing.update(dt)
 
+        screen.fill((0, 0, 0))
         for thing in drawable:
             thing.draw(screen)
 

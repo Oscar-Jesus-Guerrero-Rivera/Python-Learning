@@ -5,6 +5,7 @@ from shoot import *
 
 class player(CircleShape):
     containers = None
+    cooldown = 0
     # in the player class
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
@@ -25,6 +26,7 @@ class player(CircleShape):
         self.rotation += PLAYER_TURN_SPEED * dt
         
     def update(self, dt):
+        self.cooldown -= dt
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_w]:  # Move forward
@@ -48,6 +50,8 @@ class player(CircleShape):
         return super().check_collision(circle)
     
     def shoot(self):
-        forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        velocity = forward * PLAYER_SHOOT_SPEED
-        Shoot(self.position.x, self.position.y, velocity)
+        if self.cooldown <= 0:
+            self.cooldown = PLAYER_SHOOT_COOLDOWN
+            forward = pygame.Vector2(0, 1).rotate(self.rotation)
+            velocity = forward * PLAYER_SHOOT_SPEED
+            Shoot(self.position.x, self.position.y, velocity)
