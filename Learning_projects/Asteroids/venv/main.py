@@ -3,10 +3,10 @@ from constants import *
 from player import *
 
 def main():
-    print("Game is starting...")
-    print("Starting asteroids!")
-    print("Screen width: 1280")
-    print("Screen height: 720")
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    player.containers = (updatable,drawable)
     # Initialize the game here
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -21,8 +21,12 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
-        player_instance.update(dt)
-        player_instance.draw(screen)
+        for thing in updatable:
+            thing.update(dt)
+
+        for thing in drawable:
+            thing.draw(screen)
+        
         pygame.display.flip() 
         dt = clock.tick(60)/1000
     
