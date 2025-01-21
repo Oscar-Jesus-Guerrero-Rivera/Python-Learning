@@ -1,4 +1,4 @@
-from texnode import *
+from textnode import *
 
 def main():
     x = TextNode("hello", "bold", "google.com")
